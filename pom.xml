@@ -43,9 +43,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/sling/trunk/contrib/extensions/collection</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/sling/trunk/contrib/extensions/collection</developerConnection>
-        <url>http://svn.apache.org/viewvc/sling/trunk/contrib/extensions/collection</url>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resourcecollection.git</conncetion>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resourcecollection.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-resourcecollection.git</url>
     </scm>
 
     <!-- ======================================================================= -->
