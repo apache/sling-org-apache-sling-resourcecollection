@@ -25,7 +25,6 @@ import java.util.Map;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
 import org.apache.sling.resource.collection.ResourceCollection;
 import org.apache.sling.resource.collection.ResourceCollectionManager;
 import org.osgi.framework.Constants;
@@ -93,14 +92,14 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
                 properties = new HashMap<>();
             }
 
-            if (properties.get(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) != null
-                && !ResourceCollection.RESOURCE_TYPE.equals(properties.get(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY))) {
+            if (properties.get(ResourceResolver.PROPERTY_RESOURCE_TYPE) != null
+                && !ResourceCollection.RESOURCE_TYPE.equals(properties.get(ResourceResolver.PROPERTY_RESOURCE_TYPE))) {
                 properties.put(
-                    JcrResourceConstants.SLING_RESOURCE_SUPER_TYPE_PROPERTY,
+                    "sling:resourceSuperType",
                     ResourceCollection.RESOURCE_TYPE);
             } else {
                 properties.put(
-                    JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY,
+                    ResourceResolver.PROPERTY_RESOURCE_TYPE,
                     ResourceCollection.RESOURCE_TYPE);
             }
             Resource collectionRes = parentResource.getResourceResolver().create(parentResource, name, properties);

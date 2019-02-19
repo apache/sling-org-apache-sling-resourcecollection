@@ -28,7 +28,6 @@ import junit.framework.Assert;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
 import org.apache.sling.resource.collection.ResourceCollection;
 import org.apache.sling.resource.collection.ResourceCollectionManager;
 import org.apache.sling.testing.resourceresolver.MockResourceResolverFactory;
@@ -130,7 +129,7 @@ public class ResourceCollectionImplTest {
 	@Test
 	public void testCreateCollectionWithProperties() throws Exception {
 		final Map<String, Object> props = new HashMap<String, Object>();
-		props.put(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, "some/type");
+		props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, "some/type");
 		props.put("creator", "slingdev");
 
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection3", props);

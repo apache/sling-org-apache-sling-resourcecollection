@@ -33,7 +33,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
+
 import org.apache.sling.resource.collection.ResourceCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class ResourceCollectionImpl implements
     /**
      * Defines the resource type property
      */
-    private static final String RESOURCE_TYPE = JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY;
+    private static final String RESOURCE_TYPE = ResourceResolver.PROPERTY_RESOURCE_TYPE;
 
     /**
      * underlying resource
