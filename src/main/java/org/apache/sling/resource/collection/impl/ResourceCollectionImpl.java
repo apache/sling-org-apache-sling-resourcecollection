@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
@@ -50,7 +51,7 @@ public class ResourceCollectionImpl implements
     /**
      * Defines the resource type property
      */
-    private static final String RESOURCE_TYPE = ResourceResolver.PROPERTY_RESOURCE_TYPE;
+    private static final String RESOURCE_TYPE = SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE;
 
     /**
      * underlying resource

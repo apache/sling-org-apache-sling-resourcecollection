@@ -25,6 +25,7 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -36,6 +37,7 @@ import org.junit.Test;
 
 public class ResourceCollectionImplTest {
 	private ResourceResolver resResolver;
+	private static final String PROPERTY_RESOURCE_TYPE = SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE;
     private ResourceCollectionManager rcm;
 
 	@Before
@@ -49,10 +51,10 @@ public class ResourceCollectionImplTest {
 
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "test1");
         final Resource res1 = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(res1);
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res2",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource);
 
         Assert.assertEquals(true, collection.contains(resource));
@@ -65,10 +67,10 @@ public class ResourceCollectionImplTest {
 	public void testCreateCollection() throws Exception {
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "test1");
         final Resource res1 = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(res1, null);
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res2",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource, null);
 
         Assert.assertEquals(true, collection.contains(resource));
@@ -79,7 +81,7 @@ public class ResourceCollectionImplTest {
 	@Test
 	public void testCheckPath() throws Exception {
 		final Resource rootResource = resResolver.create(resResolver.getResource("/"), "root",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
 
         final ResourceCollection collection = rcm.createCollection(rootResource, "test1");
 
@@ -91,10 +93,10 @@ public class ResourceCollectionImplTest {
 	public void testGetCollection() throws Exception {
         ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "test1");
         final Resource res1 = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(res1, null);
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res2",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource, null);
 
         collection = rcm.getCollection(resResolver.getResource(collection.getPath()));
@@ -108,10 +110,10 @@ public class ResourceCollectionImplTest {
 	public void testListCollection() throws Exception {
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection1");
         final Resource res1 = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(res1, null);
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res2",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
 
         collection.add(resource, null);
         Assert.assertEquals(true, collection.contains(resource));
@@ -129,12 +131,12 @@ public class ResourceCollectionImplTest {
 	@Test
 	public void testCreateCollectionWithProperties() throws Exception {
 		final Map<String, Object> props = new HashMap<String, Object>();
-		props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, "some/type");
+		props.put(PROPERTY_RESOURCE_TYPE, "some/type");
 		props.put("creator", "slingdev");
 
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection3", props);
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource, null);
 
         final Resource collectionRes = resResolver.getResource("/collection3");
@@ -156,7 +158,7 @@ public class ResourceCollectionImplTest {
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection3");
 
         final Resource resource = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource, props);
 
         final Resource collectionRes = resResolver.getResource("/collection3");
@@ -178,11 +180,11 @@ public class ResourceCollectionImplTest {
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "test1");
         String[] resPaths = {"/res1", "/res2"};
         final Resource resource = resResolver.create(resResolver.getResource("/"), resPaths[0].substring(1),
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
 
         collection.add(resource, null);
         final Resource resource2 = resResolver.create(resResolver.getResource("/"), resPaths[1].substring(1),
-                Collections.singletonMap(ResourceResolver.PROPERTY_RESOURCE_TYPE, (Object)"type"));
+                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object)"type"));
         collection.add(resource2, null);
 
         Assert.assertEquals(true, collection.contains(resource2));
