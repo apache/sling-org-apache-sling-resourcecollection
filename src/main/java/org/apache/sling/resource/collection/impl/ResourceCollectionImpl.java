@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.sling.api.SlingConstants;
@@ -293,19 +294,24 @@ public class ResourceCollectionImpl implements
 		vm.put(ResourceCollectionConstants.REFERENCES_PROP, order);
 	}
 
-	@Override
-    public ModifiableValueMap getProperties(Resource resource) {
-		Iterator<Resource> entries = membersResource.listChildren();
+    @Override
+    public <T> Optional<T> getPropertiesAs(Resource resource, Class<T> type) {
+        Iterator<Resource> entries = membersResource.listChildren();
         while (entries.hasNext()) {
-        	Resource entry = entries.next();
-        	String path = ResourceUtil.getValueMap(entry).get(
-        			ResourceCollectionConstants.REF_PROPERTY, "");
+            Resource entry = entries.next();
+            String path = ResourceUtil.getValueMap(entry).get(
+                    ResourceCollectionConstants.REF_PROPERTY, "");
 
             if (resource.getPath().equals(path)) {
-            	return entry.adaptTo(ModifiableValueMap.class);
+                return Optional.ofNullable(entry.adaptTo(type));
             }
         }
 
-        return null;
-	}
+        return Optional.empty();
+    }
+
+    @Override
+    public ModifiableValueMap getProperties(Resource resource) {
+        return getPropertiesAs(resource, ModifiableValueMap.class).orElse(null);
+    }
 }
