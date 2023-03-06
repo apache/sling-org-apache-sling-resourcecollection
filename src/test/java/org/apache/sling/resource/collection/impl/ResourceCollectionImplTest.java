@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.PersistenceException;
@@ -224,7 +223,7 @@ public class ResourceCollectionImplTest {
 	}
 
     @Test
-    public void testCollectionPropertiesAs() throws PersistenceException {
+    public void testGetValueMap() throws PersistenceException {
         final Map<String, Object> props = new HashMap<String, Object>();
         props.put("creator", "slingdev");
 
@@ -239,37 +238,14 @@ public class ResourceCollectionImplTest {
 
         Assert.assertEquals(true, collection.contains(resource));
 
-        Optional<ValueMap> vm = collection.getPropertiesAs(resource, ValueMap.class);
+        ValueMap vm = collection.getValueMap(resource);
 
         Assert.assertNotNull(vm);
-        Assert.assertTrue(vm.isPresent());
-        Assert.assertEquals("slingdev", vm.get().get("creator", ""));
+        Assert.assertEquals("slingdev", vm.get("creator", ""));
     }
 
     @Test
-    public void testCollectionPropertiesAs__emptyOnInvalidAdaptTo() throws PersistenceException {
-        final Map<String, Object> props = new HashMap<String, Object>();
-        props.put("creator", "slingdev");
-
-        final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection3");
-
-        final Resource resource = resResolver.create(resResolver.getResource("/"), "res1",
-                Collections.singletonMap(PROPERTY_RESOURCE_TYPE, (Object) "type"));
-        collection.add(resource, props);
-
-        final Resource collectionRes = resResolver.getResource("/collection3");
-        Assert.assertNotNull(collectionRes);
-
-        Assert.assertEquals(true, collection.contains(resource));
-
-        Optional<IllegalArgumentException> vm = collection.getPropertiesAs(resource, IllegalArgumentException.class);
-
-        Assert.assertNotNull(vm);
-        Assert.assertFalse(vm.isPresent());
-    }
-
-    @Test
-    public void testCollectionPropertiesAs__emptyOnInvalidResource() throws PersistenceException {
+    public void testGetValueMap__emptyOnInvalidResource() throws PersistenceException {
 
         final ResourceCollection collection = rcm.createCollection(resResolver.getResource("/"), "collection3");
 
@@ -281,10 +257,9 @@ public class ResourceCollectionImplTest {
 
         Assert.assertEquals(false, collection.contains(resource));
 
-        Optional<ValueMap> vm = collection.getPropertiesAs(resource, ValueMap.class);
+        ValueMap vm = collection.getValueMap(resource);
 
         Assert.assertNotNull(vm);
-        Assert.assertFalse(vm.isPresent());
     }
 
 }

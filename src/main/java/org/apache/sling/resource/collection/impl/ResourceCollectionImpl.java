@@ -35,7 +35,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.apache.sling.resource.collection.ResourceCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -294,8 +294,7 @@ public class ResourceCollectionImpl implements
 		vm.put(ResourceCollectionConstants.REFERENCES_PROP, order);
 	}
 
-    @Override
-    public <T> Optional<T> getPropertiesAs(Resource resource, Class<T> type) {
+    private <T> Optional<T> getPropertiesAs(Resource resource, Class<T> type) {
         Iterator<Resource> entries = membersResource.listChildren();
         while (entries.hasNext()) {
             Resource entry = entries.next();
@@ -313,5 +312,10 @@ public class ResourceCollectionImpl implements
     @Override
     public ModifiableValueMap getProperties(Resource resource) {
         return getPropertiesAs(resource, ModifiableValueMap.class).orElse(null);
+    }
+
+    @Override
+    public ValueMap getValueMap(Resource resource) {
+        return getPropertiesAs(resource, ValueMap.class).orElse(new ValueMapDecorator(new HashMap<>()));
     }
 }

@@ -20,11 +20,11 @@ package org.apache.sling.resource.collection;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -68,10 +68,9 @@ public interface ResourceCollection {
     /**
      * Returns additional properties for a particular resource in Collection entry.
      *
-     * @return properties of the Collection entry as the specified type, returns empty if no entry found or 
-     *  the entry cannot be adapted to the type
+     * @return properties of the Collection entry as a ValueMap which will not be null
      */
-    <T> Optional<T> getPropertiesAs(Resource resource, Class<T> type);
+    ValueMap getValueMap(Resource resource);
 
     /**
      * Returns additional properties for a particular resource in Collection entry.
