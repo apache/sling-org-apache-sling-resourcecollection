@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -67,7 +68,15 @@ public interface ResourceCollection {
     /**
      * Returns additional properties for a particular resource in Collection entry.
      *
-     * @return properties of the Collection entry as <code>ModifiableValueMap</code>, returns null if entry found.
+     * @return properties of the Collection entry as a ValueMap which will not be null
+     */
+    ValueMap getValueMap(Resource resource);
+
+    /**
+     * Returns additional properties for a particular resource in Collection entry.
+     *
+     * @return properties of the Collection entry as <code>ModifiableValueMap</code>, returns null if no entry found
+     *  or the entry cannot be adapted to a ModifiableValueMap
      */
     ModifiableValueMap getProperties(Resource resource);
 
