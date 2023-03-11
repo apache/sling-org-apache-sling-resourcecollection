@@ -26,7 +26,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * The <code>ResourceCollectionManager<code> defines the API to get, create and delete
+ * The {@link ResourceCollectionManager} defines the API to get, create and delete
  * resource collections {@link org.apache.sling.resource.collection.ResourceCollection}.
  *
  * The ResourceCollectionManager service can be retrieved by looking it up from the
@@ -57,7 +57,7 @@ public interface ResourceCollectionManager {
      *
      * @return The {@link org.apache.sling.resource.collection.ResourceCollection} representing the created collection.
      *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     ResourceCollection createCollection(Resource parentResource, String name) throws PersistenceException;
 
@@ -71,7 +71,7 @@ public interface ResourceCollectionManager {
      *
      * @return The {@link org.apache.sling.resource.collection.ResourceCollection} representing the created collection.
      *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     ResourceCollection createCollection(Resource parentResource, String name, Map<String,Object> properties) throws PersistenceException;
 
@@ -83,7 +83,7 @@ public interface ResourceCollectionManager {
      * @param resource resource representing a collection to be deleted.
      * @return <code>true</code> if the collection was successfully removed.
      *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     boolean deleteCollection(Resource resource) throws PersistenceException;
 }

@@ -40,7 +40,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ResourceCollection {
 
 	/**
-	 * Sling resource type for resource representing a </code>ResourceCollection<code>
+	 * Sling resource type for resource representing a {@link ResourceCollection}
 	 */
     public static final String RESOURCE_TYPE = "sling/collection";
 
@@ -67,15 +67,17 @@ public interface ResourceCollection {
 
     /**
      * Returns additional properties for a particular resource in Collection entry.
-     *
-     * @return properties of the Collection entry as a ValueMap which will not be null
+     * 
+     * @param resource resource for which to get the properties
+     * @return properties of the Collection entry as a {@link ValueMap} which will not be null
      */
     ValueMap getValueMap(Resource resource);
 
     /**
      * Returns additional properties for a particular resource in Collection entry.
      *
-     * @return properties of the Collection entry as <code>ModifiableValueMap</code>, returns null if no entry found
+     * @param resource resource for which to get the properties
+     * @return properties of the Collection entry as {@link ModifiableValueMap}, returns null if no entry found
      *  or the entry cannot be adapted to a ModifiableValueMap
      */
     ModifiableValueMap getProperties(Resource resource);
@@ -92,40 +94,37 @@ public interface ResourceCollection {
     /**
      * Creates a new entry in the collection at the last position and add a reference to resource
      * in the entry.
-     * Changes are transient & have to be saved by calling resolver.commit()
+     * Changes are transient &amp; have to be saved by calling resolver.commit()
      *
      * @param resource resource to be added
      * @param properties The additional properties to be stored with the collection entry (can be null).
      * @return true if addition of resource to collection was successful or
      *         false if collection already contained the resource or resource is null.
-     *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     boolean add(Resource resource, Map<String, Object> properties) throws PersistenceException;
 
     /**
      * Creates a new entry in the collection at the last position and add a reference to resource
      * in the entry.
-     * Changes are transient & have to be saved by calling resolver.commit()
+     * Changes are transient &amp; have to be saved by calling resolver.commit()
      *
      * @param resource resource to be added
      * @return true if addition of resource to collection was successful or
      *         false if collection already contained the resource or resource is null.
-     *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     boolean add(Resource resource) throws PersistenceException;
 
 
     /**
-     * Removes a entry of resource from collection & returns true if successful.
-     * Changes are transient & have to be saved by calling resolver.commit()
+     * Removes a entry of resource from collection &amp; returns true if successful.
+     * Changes are transient &amp; have to be saved by calling resolver.commit()
      *
      * @param resource resource reference to be removed
      * @return true if resource reference was successfully removed from the collection.
      *         false if not removed/not present
-     *
-     * @throws {@link PersistenceException} if the operation fails
+     * @throws PersistenceException if the operation fails
      */
     boolean remove(Resource resource) throws PersistenceException;
 
