@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.sling.resource.collection.impl;
 
 import java.util.HashMap;
@@ -41,10 +40,9 @@ import org.slf4j.LoggerFactory;
  * This service can be retrieved by looking it up from the
  * service registry or by adapting a {@link ResourceResolver}.
  */
-@Component(service=ResourceCollectionManager.class,
-    property = {
-            Constants.SERVICE_VENDOR + "=The Apache Software Foundation"
-    })
+@Component(
+        service = ResourceCollectionManager.class,
+        property = {Constants.SERVICE_VENDOR + "=The Apache Software Foundation"})
 public class ResourceCollectionManagerImpl implements ResourceCollectionManager {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -54,23 +52,22 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
      */
     @Override
     public ResourceCollection getCollection(Resource resource) {
-    	if (resource != null) {
-    		if (resource.isResourceType(ResourceCollection.RESOURCE_TYPE)) {
+        if (resource != null) {
+            if (resource.isResourceType(ResourceCollection.RESOURCE_TYPE)) {
                 return new ResourceCollectionImpl(resource);
             }
-    	} else {
-    		throw new IllegalArgumentException("resource can not be null");
-    	}
+        } else {
+            throw new IllegalArgumentException("resource can not be null");
+        }
 
-    	return null;
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ResourceCollection createCollection(Resource parentResource, String name)
-            throws PersistenceException {
+    public ResourceCollection createCollection(Resource parentResource, String name) throws PersistenceException {
         return createCollection(parentResource, name, null);
     }
 
@@ -78,15 +75,14 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
      * {@inheritDoc}
      */
     @Override
-    public ResourceCollection createCollection(Resource parentResource, String name,
-            Map<String, Object> properties) throws PersistenceException {
+    public ResourceCollection createCollection(Resource parentResource, String name, Map<String, Object> properties)
+            throws PersistenceException {
 
         if (parentResource != null) {
-        	String fullPath = parentResource.getPath() + "/" + name;
+            String fullPath = parentResource.getPath() + "/" + name;
 
             if (parentResource.getResourceResolver().getResource(fullPath) != null) {
-                throw new IllegalArgumentException("invalid path, " + fullPath
-                    + "resource already exists");
+                throw new IllegalArgumentException("invalid path, " + fullPath + "resource already exists");
             }
 
             if (properties == null) {
@@ -94,17 +90,20 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
             }
 
             if (properties.get(SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE) != null
-                && !ResourceCollection.RESOURCE_TYPE.equals(properties.get(SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE))) {
+                    && !ResourceCollection.RESOURCE_TYPE.equals(properties.get(
+                            SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE))) {
                 properties.put(
-                    SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_SUPER_TYPE,
-                    ResourceCollection.RESOURCE_TYPE);
+                        SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_SUPER_TYPE,
+                        ResourceCollection.RESOURCE_TYPE);
             } else {
                 properties.put(
-                    SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE,
-                    ResourceCollection.RESOURCE_TYPE);
+                        SlingConstants.NAMESPACE_PREFIX + ":" + SlingConstants.PROPERTY_RESOURCE_TYPE,
+                        ResourceCollection.RESOURCE_TYPE);
             }
             Resource collectionRes = parentResource.getResourceResolver().create(parentResource, name, properties);
-            parentResource.getResourceResolver().create(collectionRes, ResourceCollectionConstants.MEMBERS_NODE_NAME, null);
+            parentResource
+                    .getResourceResolver()
+                    .create(collectionRes, ResourceCollectionConstants.MEMBERS_NODE_NAME, null);
             log.debug("collection  {} created", fullPath);
 
             return new ResourceCollectionImpl(collectionRes);
@@ -112,7 +111,6 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
             log.error("parent resource can not be null");
             throw new IllegalArgumentException("parent resource can not be null ");
         }
-
     }
 
     /**
@@ -121,14 +119,13 @@ public class ResourceCollectionManagerImpl implements ResourceCollectionManager 
      * @throws PersistenceException
      */
     @Override
-    public boolean deleteCollection(Resource resource)
-            throws PersistenceException {
-    	if (resource != null) {
-	        log.debug("collection  {} deleted", resource.getPath());
-	        resource.getResourceResolver().delete(resource);
-	        return true;
-    	} else {
-    		throw new IllegalArgumentException("resource can not be null");
-    	}
+    public boolean deleteCollection(Resource resource) throws PersistenceException {
+        if (resource != null) {
+            log.debug("collection  {} deleted", resource.getPath());
+            resource.getResourceResolver().delete(resource);
+            return true;
+        } else {
+            throw new IllegalArgumentException("resource can not be null");
+        }
     }
 }

@@ -47,7 +47,6 @@ public interface ResourceCollectionManager {
      */
     ResourceCollection getCollection(Resource resource);
 
-
     /**
      * This method creates a resource collection with a given name under the <code>parentResource</code>.
      * The changes are transient and have to be saved by resourceResolver.commit()
@@ -73,7 +72,8 @@ public interface ResourceCollectionManager {
      *
      * @throws PersistenceException if the operation fails
      */
-    ResourceCollection createCollection(Resource parentResource, String name, Map<String,Object> properties) throws PersistenceException;
+    ResourceCollection createCollection(Resource parentResource, String name, Map<String, Object> properties)
+            throws PersistenceException;
 
     /**
      * Removes the {@link org.apache.sling.resource.collection.ResourceCollection} corresponding to the collection represented by

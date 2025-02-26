@@ -39,9 +39,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ResourceCollection {
 
-	/**
-	 * Sling resource type for resource representing a {@link ResourceCollection}
-	 */
+    /**
+     * Sling resource type for resource representing a {@link ResourceCollection}
+     */
     public static final String RESOURCE_TYPE = "sling/collection";
 
     /**
@@ -67,7 +67,7 @@ public interface ResourceCollection {
 
     /**
      * Returns additional properties for a particular resource in Collection entry.
-     * 
+     *
      * @param resource resource for which to get the properties
      * @return properties of the Collection entry as a {@link ValueMap} which will not be null
      */
@@ -115,7 +115,6 @@ public interface ResourceCollection {
      * @throws PersistenceException if the operation fails
      */
     boolean add(Resource resource) throws PersistenceException;
-
 
     /**
      * Removes a entry of resource from collection &amp; returns true if successful.

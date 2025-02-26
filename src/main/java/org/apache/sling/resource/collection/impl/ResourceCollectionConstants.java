@@ -19,9 +19,9 @@
 package org.apache.sling.resource.collection.impl;
 
 public interface ResourceCollectionConstants {
-   /**
-    * property name to store resource reference in collection entry
-    */
+    /**
+     * property name to store resource reference in collection entry
+     */
     static final String REF_PROPERTY = "sling:resource";
 
     /**

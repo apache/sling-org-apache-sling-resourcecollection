@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -37,15 +37,13 @@
     <version>1.0.5-SNAPSHOT</version>
 
     <name>Apache Sling Resource Collection API</name>
-    <description>
-        The Apache Sling resource collection bundle provides an api to manage collections of Resources.
-    </description>
+    <description>The Apache Sling resource collection bundle provides an api to manage collections of Resources.</description>
 
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resourcecollection.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resourcecollection.git</developerConnection>
-        <url>https://github.com/apache/sling-org-apache-sling-resourcecollection.git</url>
         <tag>HEAD</tag>
+        <url>https://github.com/apache/sling-org-apache-sling-resourcecollection.git</url>
     </scm>
 
     <properties>
@@ -98,8 +96,8 @@
             <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
-       <!-- Testing -->
+
+        <!-- Testing -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -115,7 +113,7 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>test</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.testing.resourceresolver-mock</artifactId>
             <version>0.1.0</version>
