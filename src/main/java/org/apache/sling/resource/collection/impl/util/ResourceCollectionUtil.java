@@ -16,15 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.sling.resource.collection.impl.util;
-
 
 import org.apache.sling.api.resource.Resource;
 
 public class ResourceCollectionUtil {
-	
-	 /**
+
+    /**
      * Create a unique name for a child of the <code>resource</code>. Generates a unique name and test if child
      * already exists. If name is already existing, iterate until a unique one is found
      *
@@ -33,17 +31,16 @@ public class ResourceCollectionUtil {
      * @return a unique label string
      */
     public static String createUniqueChildName(Resource resource, String name) {
-        if (resource.getChild(name)!=null) {
+        if (resource.getChild(name) != null) {
             // leaf node already exists, create new unique name
             String leafNodeName;
             int i = 0;
             do {
                 leafNodeName = name + String.valueOf(i);
                 i++;
-            } while (resource.getChild(leafNodeName)!=null);
+            } while (resource.getChild(leafNodeName) != null);
             return leafNodeName;
         }
         return name;
     }
-
 }

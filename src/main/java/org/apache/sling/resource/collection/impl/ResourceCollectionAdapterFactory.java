@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.sling.resource.collection.impl;
 
 import org.apache.sling.api.adapter.AdapterFactory;
@@ -34,15 +33,16 @@ import org.slf4j.LoggerFactory;
  * AdapterFactory that adapts Resources to: {@link ResourceCollection}
  * And ResourceResolver to: {@link ResourceCollectionManager)
  */
-@Component(service = AdapterFactory.class,
-    property = {
+@Component(
+        service = AdapterFactory.class,
+        property = {
             Constants.SERVICE_VENDOR + "=The Apache Software Foundation",
             Constants.SERVICE_DESCRIPTION + "=Apache Sling Resource Collection Adapter Factory",
             "adapters=org.apache.sling.resource.collection.ResourceCollection",
             "adapters=org.apache.sling.resource.collection.ResourceCollectionManager",
             "adaptables=org.apache.sling.api.resource.Resource",
             "adaptables=org.apache.sling.api.resource.ResourceResolver"
-    })
+        })
 public class ResourceCollectionAdapterFactory implements AdapterFactory {
 
     private final Logger log = LoggerFactory.getLogger(ResourceCollectionAdapterFactory.class);
@@ -57,44 +57,37 @@ public class ResourceCollectionAdapterFactory implements AdapterFactory {
     // ---------- AdapterFactory -----------------------------------------------
 
     @Override
-    public <AdapterType> AdapterType getAdapter(Object adaptable,
-            Class<AdapterType> type) {
+    public <AdapterType> AdapterType getAdapter(Object adaptable, Class<AdapterType> type) {
         if (adaptable instanceof Resource) {
             return getAdapter((Resource) adaptable, type);
         } else if (adaptable instanceof ResourceResolver) {
             return getAdapter((ResourceResolver) adaptable, type);
         } else {
-            log.warn("Unable to handle adaptable {}",
-                adaptable.getClass().getName());
+            log.warn("Unable to handle adaptable {}", adaptable.getClass().getName());
             return null;
         }
     }
 
     @SuppressWarnings("unchecked")
-    private <AdapterType> AdapterType getAdapter(Resource resource,
-            Class<AdapterType> type) {
+    private <AdapterType> AdapterType getAdapter(Resource resource, Class<AdapterType> type) {
         if (resource != null) {
             if (type == COLLECTION_CLASS) {
                 if (resource.isResourceType(ResourceCollection.RESOURCE_TYPE)) {
                     return (AdapterType) new ResourceCollectionImpl(resource);
                 }
             }
-            log.debug("Unable to adapt resource of {} to type {}",
-                resource.getResourceType(), type.getName());
-
+            log.debug("Unable to adapt resource of {} to type {}", resource.getResourceType(), type.getName());
         }
         log.debug("Unable to adapt null resource to type {}", type.getName());
         return null;
     }
 
     @SuppressWarnings("unchecked")
-    private <AdapterType> AdapterType getAdapter(ResourceResolver resolver,
-            Class<AdapterType> type) {
+    private <AdapterType> AdapterType getAdapter(ResourceResolver resolver, Class<AdapterType> type) {
         if (COLLECTION_MGR_CLASS == type) {
             return (AdapterType) collectionManager;
         } else {
-            log.warn("Unable to adapt resolver to requested type {}",
-                type.getName());
+            log.warn("Unable to adapt resolver to requested type {}", type.getName());
             return null;
         }
     }
