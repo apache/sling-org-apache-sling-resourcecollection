@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.apache.sling</groupId>
         <artifactId>sling-bundle-parent</artifactId>
-        <version>49</version>
+        <version>62</version>
         <relativePath />
     </parent>
 
@@ -47,6 +47,11 @@
         <url>https://github.com/apache/sling-org-apache-sling-resourcecollection.git</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <sling.java.version>11</sling.java.version>
+        <project.build.outputTimestamp>2025-02-26T00:00:00Z</project.build.outputTimestamp>
+    </properties>
 
     <!-- ======================================================================= -->
     <!-- D E P E N D E N C I E S                                                 -->
@@ -75,7 +80,7 @@
         <!-- OSGI -->
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
+            <artifactId>org.osgi.framework</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
